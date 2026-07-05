@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Mia Presentazione - Giulag</title>
+    <style>
+        :root {
+            --bg-color: #0a0f1d;
+            --card-bg: #161f38;
+            --accent-color: #00ffcc;
+            --text-color: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .presentation-container {
+            width: 90%;
+            max-width: 800px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 204, 0.1);
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+
+        h1 { font-size: 2.5rem; text-align: center; margin-bottom: 20px; }
+        h2 { font-size: 1.8rem; border-bottom: 2px solid rgba(0, 255, 204, 0.2); padding-bottom: 10px; }
+
+        p { line-height: 1.6; font-size: 1.1rem; color: var(--text-color); }
+        
+        ul { padding-left: 20px; }
+        li { margin-bottom: 12px; font-size: 1.1rem; line-height: 1.5; }
+        strong { color: var(--accent-color); }
+
+        .highlight-box {
+            background: rgba(0, 255, 204, 0.05);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+            padding-top: 20px;
+        }
+
+        button {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+        }
+
+        button:disabled {
+            border-color: var(--text-muted);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .progress-bar {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+        <div class="progress-bar" id="progress">Slide 1 di 4</div>
+
+        <!-- SLIDE 1: INTRODUZIONE -->
+        <div class="slide active" id="slide-1">
+            <h1>Ciao a tutti! 🚀</h1>
+            <h2>Chi sono e come ragiono</h2>
+            <p>Mi chiamo <strong>Giuseppe La Gattuta</strong> (online mi trovate come <strong>Giulag</strong>).</p>
+            <p>Oggi non voglio solo mostrarvi dei programmi, ma voglio spiegarvi la mia filosofia. Non mi basta usare la tecnologia come fanno tutti: a me piace capire **come funziona dall'interno**, smontarla, rimontarla e trovare scorciatoie intelligenti. In pratica, ho l'approccio di un giovane programmatore e hacker curioso!</p>
+        </div>
+
+        <!-- SLIDE 2: CONVERSANDO & PWA -->
+        <div class="slide" id="slide-2">
+            <h2>L'App "Conversando" & il trucco delle PWA</h2>
+            <p>Insieme a un assistente speciale ho sviluppato un'app di chat chiamata <strong>Conversando</strong>. Ma la vera magia è come l'ho resa accessibile.</p>
+            <div class="highlight-box">
+                <strong>Cos'è una PWA (Progressive Web App)?</strong><br>
+                È un trucco tecnologico (fatto con file di configurazione come il <code>manifest.json</code>). Permette a un normale sito web di comportarsi come un'applicazione vera e propria!
+            </div>
+            <ul>
+                <li>Si può <strong>installare sul telefono</strong> direttamente dal browser.</li>
+                <li>Non serve scaricarla dagli store ufficiali (Google Play o App Store).</li>
+                <li>Si apre a tutto schermo, è velocissima e sembra un'app nativa.</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 3: ESP32 -->
+        <div class="slide" id="slide-3">
+            <h2>Il Futuro: Cos'è l'ESP32?</h2>
+            <p>Per i miei prossimi progetti sto abbandonando i vecchi sistemi per passare a qualcosa di molto più potente: la scheda <strong>ESP32</strong>.</p>
+            <ul>
+                <li>È un <strong>microcontrollore</strong> piccolissimo (un mini-computer da pochi euro).</li>
+                <li>A differenza dei classici Arduino, ha già il <strong>Wi-Fi e il Bluetooth integrati</strong> chip a chip.</li>
+                <li>Permette di connettere sensori, schermi e motori per creare oggetti intelligenti che comunicano con internet.</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 4: PROGETTI FUTURI -->
+        <div class="slide" id="slide-4">
+            <h2>Progetti Futuri: Il Telefono Fai-da-Te</h2>
+            <p>Sfruttando la potenza dell'ESP32, sto lavorando a un grande obiettivo: costruire un <strong>prototipo di telefono cellulare personalizzato</strong>!</p>
+            <p>I pezzi che sto mettendo insieme:</p>
+            <ul>
+                <li><strong>ESP32:</strong> Il "cervello" elettronico del telefono.</li>
+                <li><strong>Schermo Touch ILI9341:</strong> Per gestire l'interfaccia grafica, navigare tra le impostazioni e vedere le funzioni.</li>
+                <li><strong>Modulo Fotocamera:</strong> Una telecamera separata collegata alla scheda per scattare foto reali.</li>
+            </ul>
+            <div class="highlight-box" style="text-align: center; border-left: none; border-top: 3px solid var(--accent-color);">
+                <strong>Grazie a tutti per l'attenzione! Spazio alla Demo Live! 🛠️</strong>
+            </div>
+        </div>
+
+        <!-- NAVIGAZIONE -->
+        <div class="navigation">
+            <button id="prevBtn" onclick="changeSlide(-1)" disabled>Indietro</button>
+            <button id="nextBtn" onclick="changeSlide(1)">Avanti</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 4;
+
+        function changeSlide(direction) {
+            // Nascondi slide corrente
+            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+            
+            // Calcola nuova slide
+            currentSlide += direction;
+            
+            // Mostra nuova slide
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            
+            // Aggiorna bottoni e progresso
+            document.getElementById('prevBtn').disabled = (currentSlide === 1);
+            document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
+            document.getElementById('progress').innerText = `Slide ${currentSlide} di ${totalSlides}`;
+        }
+    </script>
+</body>
+</html>
