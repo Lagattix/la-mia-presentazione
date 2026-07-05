@@ -3,184 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Mia Presentazione - Giulag</title>
+    <title>Presentazione - Giulag</title>
     <style>
-        :root {
-            --bg-color: #0a0f1d;
-            --card-bg: #161f38;
-            --accent-color: #00ffcc;
-            --text-color: #e2e8f0;
-            --text-muted: #94a3b8;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Stile Hacker / Dark Mode */
+        body { 
+            font-family: 'Courier New', Courier, monospace; 
+            background-color: #050a15; 
+            color: #00ffcc; 
+            overflow: hidden; /* Nasconde la barra di scorrimento laterale */
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .presentation-container {
-            width: 90%;
-            max-width: 800px;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 255, 204, 0.1);
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        
+        .slider-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
         }
 
         .slide {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out forwards;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5%;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            transform: scale(0.95);
+            pointer-events: none;
         }
 
         .slide.active {
-            display: block;
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1, h2 {
-            color: var(--accent-color);
-            margin-top: 0;
-        }
-
-        h1 { font-size: 2.8rem; text-align: center; margin-bottom: 20px; }
-        h2 { font-size: 2rem; border-bottom: 2px solid rgba(0, 255, 204, 0.2); padding-bottom: 15px; margin-bottom: 25px; }
-
-        p { line-height: 1.7; font-size: 1.2rem; color: var(--text-color); margin-bottom: 20px; }
+        /* Testi Giganti per la Presentazione */
+        h1 { font-size: 4.5rem; margin-bottom: 20px; text-shadow: 0 0 15px rgba(0, 255, 204, 0.6); text-align: center; }
+        h2 { font-size: 3rem; margin-bottom: 40px; color: #fff; text-align: center; border-bottom: 2px solid #00ffcc; padding-bottom: 10px; }
+        p { font-size: 2rem; line-height: 1.6; color: #e2e8f0; margin-bottom: 20px; text-align: center; max-width: 1000px; }
         
-        ul { padding-left: 25px; margin-bottom: 25px; }
-        li { margin-bottom: 15px; font-size: 1.15rem; line-height: 1.6; }
-        strong { color: var(--accent-color); }
+        ul { width: 100%; max-width: 1000px; margin: 0 auto; padding-left: 40px; text-align: left; }
+        li { font-size: 2rem; line-height: 1.8; color: #e2e8f0; margin-bottom: 20px; }
+        strong { color: #00ffcc; }
 
-        .highlight-box {
-            background: rgba(0, 255, 204, 0.05);
-            border-left: 4px solid var(--accent-color);
-            padding: 20px;
-            border-radius: 0 8px 8px 0;
-            margin: 25px 0;
-            font-size: 1.15rem;
+        .highlight { 
+            border-left: 8px solid #00ffcc; 
+            background: rgba(0, 255, 204, 0.1); 
+            padding: 25px; 
+            border-radius: 5px; 
+            margin: 30px auto; 
+            max-width: 1000px;
+            text-align: left;
         }
+        
+        .highlight p { text-align: left; margin: 0; }
 
-        .navigation {
+        /* Bottoni in basso */
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            border-top: 1px solid rgba(148, 163, 184, 0.2);
-            padding-top: 25px;
+            gap: 30px;
+            z-index: 100;
         }
 
         button {
-            background: transparent;
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 12px 26px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 8px;
+            background: rgba(0, 255, 204, 0.1);
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
+            padding: 15px 40px;
+            font-size: 1.5rem;
             cursor: pointer;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: bold;
             transition: all 0.3s ease;
         }
 
-        button:hover:not(:disabled) {
-            background: var(--accent-color);
-            color: var(--bg-color);
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
-        }
+        button:hover:not(:disabled) { background: #00ffcc; color: #050a15; box-shadow: 0 0 20px #00ffcc; }
+        button:disabled { border-color: #333; color: #333; background: transparent; cursor: not-allowed; }
 
-        button:disabled {
-            border-color: var(--text-muted);
-            color: var(--text-muted);
-            cursor: not-allowed;
-            opacity: 0.4;
-        }
-
-        .progress-bar {
-            text-align: center;
-            font-size: 1rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
+        .slide-number { position: fixed; top: 30px; right: 40px; font-size: 1.8rem; color: #555; font-weight: bold; z-index: 100;}
     </style>
 </head>
 <body>
 
-    <div class="presentation-container">
-        <div class="progress-bar" id="progress">Slide 1 di 5</div>
+    <div class="slide-number" id="counter">1 / 5</div>
 
-        <div class="slide-content">
-            <div class="slide active" id="slide-1">
-                <h1>Ciao a tutti! 🚀</h1>
-                <h2>Chi sono e come ragiono</h2>
-                <p>Mi chiamo <strong>Giuseppe La Gattuta</strong> (online mi trovate come <strong>Giulag</strong>).</p>
-                <p>Oggi voglio spiegarvi come vedo il mondo della tecnologia. Non mi basta semplicemente usare i programmi o i dispositivi come fanno tutti: a me piace capire <strong>come funzionano dall'interno</strong>, fare tentativi, smontarli, rimontarli e trovare scorciatoie intelligenti. In pratica, mi piace avere l'approccio di un giovane programmatore e hacker curioso!</p>
-            </div>
-
-            <div class="slide" id="slide-2">
-                <h2>L'App "Conversando"</h2>
-                <p>Questo è un progetto davvero speciale, in <strong>continuo sviluppo</strong> e continua evoluzione.</p>
-                <ul>
-                    <li><strong>Il Front-End:</strong> L'interfaccia grafica pulita e reattiva con cui l'utente interagisce direttamente.</li>
-                    <li><strong>Il Back-End & l'AI:</strong> Il "motore" nascosto dietro le quinte, che è interamente concentrato e ottimizzato sull'integrazione con l'intelligenza artificiale <strong>Conversina</strong>.</li>
-                    <li><strong>Evoluzione costante:</strong> Non è un progetto finito, ci saranno tantissimi <strong>aggiornamenti futuri</strong> per renderlo sempre più potente e intelligente.</li>
-                </ul>
-            </div>
-
-            <div class="slide" id="slide-3">
-                <h2>La svolta: Come l'ho resa una PWA</h2>
-                <p>Per rendere l'app accessibile a tutti in modo immediato, l'ho trasformata in una <strong>PWA (Progressive Web App)</strong>.</p>
-                <div class="highlight-box">
-                    <strong>Che cos'è una PWA?</strong><br>
-                    È una tecnologia che permette a un normale sito web di comportarsi esattamente come un'applicazione nativa per smartphone, grazie a file di configurazione specifici come il <code>manifest.json</code>.
-                </div>
-                <ul>
-                    <li>Si può <strong>installare direttamente sul telefono</strong> direttamente dal browser.</li>
-                    <li>Non c'è bisogno di passare o scaricare nulla dagli store ufficiali (Google Play o App Store).</li>
-                    <li>Si apre a tutto schermo, è leggerissima e si avvia all'istante.</li>
-                </ul>
-            </div>
-
-            <div class="slide" id="slide-4">
-                <h2>Il Futuro: Cos'è l'ESP32?</h2>
-                <p>Per fare il salto di qualità con l'hardware e l'elettronica, sto scoprendo un componente formidabile: l'<strong>ESP32</strong>.</p>
-                <ul>
-                    <li>È un <strong>microcontrollore</strong> piccolissimo ed economico, ma incredibilmente potente (molto più delle vecchie schede Arduino).</li>
-                    <li>La sua caratteristica principale è che ha i moduli <strong>Wi-Fi e Bluetooth integrati</strong> direttamente sul chip.</li>
-                    <li>Permette di programmare e connettere sensori, schermi e motori facendoli comunicare direttamente con internet.</li>
-                </ul>
-            </div>
-
-            <div class="slide" id="slide-5">
-                <h2>Progetti Futuri: Il Telefono Fai-da-Te</h2>
-                <p>Unendo la programmazione e la potenza dell'ESP32, il mio prossimo grande obiettivo è costruire un vero e proprio <strong>prototipo di telefono cellulare personalizzato</strong>.</p>
-                <p>I moduli che sto integrando nel sistema:</p>
-                <ul>
-                    <li><strong>ESP32:</strong> Il cervello elettronico centrale che coordina tutto il software.</li>
-                    <li><strong>Schermo Touch ILI9341:</strong> Per navigare tra le applicazioni, le impostazioni e l'interfaccia grafica.</li>
-                    <li><strong>Modulo Fotocamera:</strong> Una telecamera dedicata e separata per catturare immagini reali gestite dal microcontrollore.</li>
-                </ul>
-            </div>
+    <div class="slider-container">
+        <!-- SLIDE 1: INTRO -->
+        <div class="slide active" id="slide-1">
+            <h1>Ciao a tutti! 🚀</h1>
+            <h2>Chi sono e come ragiono</h2>
+            <p>Mi chiamo <strong>Giuseppe La Gattuta</strong> (online <strong>Giulag</strong>).</p>
+            <p>La mia filosofia: non mi basta "usare" la tecnologia. Voglio capire <strong>come funziona dall'interno</strong>, smontarla e trovare scorciatoie intelligenti.</p>
+            <p style="color: #00ffcc; margin-top: 30px;"><em>Sono un giovane programmatore e hacker curioso.</em></p>
         </div>
 
-        <div class="navigation">
-            <button id="prevBtn" onclick="changeSlide(-1)" disabled>Indietro</button>
-            <button id="nextBtn" onclick="changeSlide(1)">Avanti</button>
+        <!-- SLIDE 2: CONVERSANDO -->
+        <div class="slide" id="slide-2">
+            <h1>L'App "Conversando"</h1>
+            <h2>Il cuore del progetto</h2>
+            <ul>
+                <li><strong>Sviluppo continuo:</strong> Non è un'app statica, si evolve di giorno in giorno.</li>
+                <li><strong>Front-End:</strong> L'interfaccia grafica pulita con cui interagite voi.</li>
+                <li><strong>Back-End:</strong> Il motore nascosto, concentrato interamente sull'intelligenza artificiale <strong>Conversina</strong>.</li>
+                <li><strong>Aggiornamenti:</strong> Arriveranno presto nuove funzioni per renderla sempre più potente.</li>
+            </ul>
         </div>
+
+        <!-- SLIDE 3: PWA -->
+        <div class="slide" id="slide-3">
+            <h1>La Magia delle PWA</h1>
+            <h2>Progressive Web App</h2>
+            <div class="highlight">
+                <p><strong>Il Trucco:</strong> Usando file di configurazione come il <code>manifest.json</code>, facciamo credere al telefono che un normale sito web sia un'applicazione vera e propria!</p>
+            </div>
+            <ul>
+                <li>Si installa <strong>direttamente dal browser</strong> (niente Play Store o App Store).</li>
+                <li>Si apre a <strong>tutto schermo</strong> ed è super reattiva.</li>
+                <li>Non occupa spazio inutile sul telefono.</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 4: ESP32 -->
+        <div class="slide" id="slide-4">
+            <h1>Hardware: L'ESP32</h1>
+            <h2>Il prossimo livello</h2>
+            <ul>
+                <li>È un <strong>microcontrollore</strong> potentissimo, grande quanto una moneta.</li>
+                <li>Ha i moduli <strong>Wi-Fi e Bluetooth</strong> integrati direttamente sul chip.</li>
+                <li>È il "ponte" perfetto per collegare il mondo fisico all'intelligenza artificiale e a internet.</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 5: TELEFONO -->
+        <div class="slide" id="slide-5">
+            <h1>Progetti Futuri</h1>
+            <h2>Il Telefono Fai-da-Te 📱</h2>
+            <p style="margin-bottom: 40px;">Sto assemblando un <strong>prototipo di cellulare</strong> da zero, programmando sia l'hardware che il software:</p>
+            <ul>
+                <li><strong>Cervello:</strong> L'ESP32 che gestisce tutte le operazioni.</li>
+                <li><strong>Interfaccia:</strong> Uno schermo Touch ILI9341 per le app e le impostazioni.</li>
+                <li><strong>Occhi:</strong> Un modulo fotocamera dedicato per scattare foto reali.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="changeSlide(-1)" disabled>◄ Indietro</button>
+        <button id="nextBtn" onclick="changeSlide(1)">Avanti ►</button>
     </div>
 
     <script>
@@ -188,16 +166,22 @@
         const totalSlides = 5;
 
         function changeSlide(direction) {
-            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
-            currentSlide += direction;
-            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            // Nascondi quella attuale
+            document.getElementById('slide-' + currentSlide).classList.remove('active');
             
+            // Aggiorna contatore
+            currentSlide += direction;
+            
+            // Mostra la nuova
+            document.getElementById('slide-' + currentSlide).classList.add('active');
+            
+            // Aggiorna bottoni e testo in alto a destra
             document.getElementById('prevBtn').disabled = (currentSlide === 1);
             document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
-            document.getElementById('progress').innerText = `Slide ${currentSlide} di ${totalSlides}`;
+            document.getElementById('counter').innerText = currentSlide + ' / ' + totalSlides;
         }
 
-        // Navigazione da tastiera (Frecce o Spazio)
+        // Permette di cambiare slide comodamente premendo la barra spaziatrice o le frecce della tastiera!
         document.addEventListener('keydown', function(event) {
             if (event.key === 'ArrowRight' || event.key === ' ') {
                 if (currentSlide < totalSlides) changeSlide(1);
